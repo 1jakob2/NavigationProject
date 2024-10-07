@@ -9,8 +9,8 @@ import java.util.Map;
 
 public class MapData {
 
-    private static final String EdgeFile = "/tmp/Edges.csv";
-    private static final String NodeFile = "/tmp/Nodes.csv";
+    private static final String EdgeFile = "src/MapData/Edges.csv";
+    private static final String NodeFile = "src/MapData/Nodes.csv";
     private static final Map<String, ArrayList<Destination>> adjacencyList = new HashMap<>();
     private static final Map<String, GPS> nodes = new HashMap<>();
 
