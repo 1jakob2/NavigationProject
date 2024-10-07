@@ -1,5 +1,9 @@
+import breadthFirst.BreadthFirst;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world! test");
+        String start = "Neuengasse/1";
+        String end = "Schänzlihalde/1";
+        BreadthFirst breadthFirst = new BreadthFirst(start, end);
     }
 }
