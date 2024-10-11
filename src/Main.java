@@ -1,3 +1,4 @@
+import aStar.AStar;
 import bestFirst.BestFirst;
 import breadthFirst.BreadthFirst;
 
@@ -6,6 +7,7 @@ public class Main {
         String start = "Rönerweg/1";
         String end = "Schänzlihalde/1";
         //BreadthFirst breadthFirst = new BreadthFirst(start, end);
-        BestFirst bestFirst = new BestFirst(start, end);
+        //BestFirst bestFirst = new BestFirst(start, end);
+        AStar aStar = new AStar(start, end);
     }
 }
