@@ -20,7 +20,6 @@ public class BreadthFirst {
         }
         adjList = data.getAdjacencyList();
         System.out.println("Got AdjacencyList");
-        //nodeList = data.getNodes();
         ArrayList<String> path = breadthFirst(start, end);
         System.out.println("Fastest Route Found");
         printPath(path);
