@@ -1,6 +1,8 @@
 import aStar.AStar;
 import bestFirst.BestFirst;
 
+import java.util.List;
+
 public class AStarMain {
     public static void main(String[] args) {
         String[] startLocations = {
@@ -10,11 +12,15 @@ public class AStarMain {
                 "Suhr16", "Suhr17", "Suhr18", "Suhr19", "Suhr20"
         };
         String endLocation = "Schänzlihalde/1";
-
+        List<String> path = null;
         long startTime = System.nanoTime();
         for (int i = 0; i < 20; i++) {
             String start = startLocations[i % startLocations.length];
             AStar bestFirst = new AStar(start, endLocation);
+            path = bestFirst.getPath();
+            // bestFirst.printPath(path);
+            System.out.println("Ecken: " + path.size());
+            System.out.println("------------------");
         }
         long endTime = System.nanoTime();
         double durationInSeconds = (endTime - startTime) / 1_000_000_000.0;

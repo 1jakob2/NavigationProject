@@ -13,6 +13,7 @@ public class AStar {
     private static Map<String, NodeInfo> searchInfo = new HashMap<>();
     private static ArrayList<String> queue = new ArrayList<>();
 
+    List<String> path = null;
     public AStar(String start, String end){
         MapData data = null;
         try {
@@ -22,8 +23,12 @@ public class AStar {
         }
         adjList = data.getAdjacencyList();
         nodeList = data.getNodes();
-        List<String> path = aStar(start, end);
-        printPath(path);
+        path = aStar(start, end);
+
+    }
+
+    public List<String> getPath(){
+        return path;
     }
 
     private static List<String> aStar(String start, String end) {
@@ -78,15 +83,15 @@ public class AStar {
     private static String findNodeLowestCost() {
         double shortestDistance = Double.MAX_VALUE;
         String result = null;
-        System.out.println("Queue start:");
+        // System.out.println("Queue start:");
         queue.stream().forEach(System.out::println);
-        System.out.println("Queue end");
+        // System.out.println("Queue end");
         for (String node : queue) {
             NodeInfo nodeInfo = searchInfo.get(node);
             if ((nodeInfo.distanceSoFar + nodeInfo.distanceToGoal) < shortestDistance) {
                 result = node;
                 shortestDistance = nodeInfo.distanceSoFar + nodeInfo.distanceToGoal;
-                System.out.println(result + ": " + shortestDistance);
+                // System.out.println(result + ": " + shortestDistance);
             }
         }
         if (result != null) queue.remove(result);
@@ -114,7 +119,7 @@ public class AStar {
         return Math.sqrt(xDiff * xDiff + yDiff * yDiff);
     }
 
-    private static void printPath(List<String> path) {
+    public void printPath(List<String> path) {
         System.out.print("Final solution: ");
         for (String node : path) System.out.printf("%s ", node);
         System.out.println();

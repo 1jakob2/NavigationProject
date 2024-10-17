@@ -10,6 +10,7 @@ public class DepthFirst {
 
     private static Map<String, ArrayList<MapData.Destination>> adjList = new HashMap<>();
 
+    ArrayList<String> path;
     public DepthFirst(String current, String end){
         MapData data = null;
         try {
@@ -20,11 +21,14 @@ public class DepthFirst {
         adjList = data.getAdjacencyList();
         System.out.println("Fastest Route Found");
 
-        ArrayList<String> path = depthFirst(current, end);
-        printPath(path);
+        path = depthFirst(current, end);
     }
 
-    private void printPath(ArrayList<String> path) {
+    public ArrayList<String> getPath(){
+        return path;
+    }
+
+    public void printPath(ArrayList<String> path) {
         System.out.print("Final solution: ");
         for (String node : path) System.out.printf("%s ", node);
         System.out.println();

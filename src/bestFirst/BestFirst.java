@@ -11,6 +11,7 @@ public class BestFirst {
     private static Map<String, ArrayList<MapData.Destination>> adjList;
     private static Map<String, MapData.GPS> nodeList;
 
+    Path path = null;
     public BestFirst(String start, String end){
         MapData data = null;
         try {
@@ -20,8 +21,12 @@ public class BestFirst {
         }
         adjList = data.getAdjacencyList();
         nodeList = data.getNodes();
-        Path path = bestFirst(start, end);
-        printPath(path.nodes);
+        path = bestFirst(start, end);
+
+    }
+
+    public ArrayList<String> getNode(){
+        return path.nodes;
     }
 
     private static Path bestFirst(String start, String end) {
@@ -29,14 +34,14 @@ public class BestFirst {
         ArrayList<Path> paths = new ArrayList<>();
         ArrayList<String> startingNodeList = new ArrayList<>(Arrays.asList(start));
         paths.add(new Path(startingNodeList, distanceBetween(start, end))); // Add starting path to list
-        System.out.println(paths.stream().findAny());
+        // System.out.println(paths.stream().findAny());
 
         boolean solutionFound = false;
         while (!solutionFound && paths.size() > 0) {
             // Find the path whose end-node is closest to our goal
             // Remove this path from the list, and use it for the next step
             int bestIndex = bestPath(paths, end);
-            System.out.println(paths.get(bestIndex));
+            // System.out.println(paths.get(bestIndex));
             Path oldPath = paths.remove(bestIndex);
 
             // Extend it in all possible ways, adding each new path to the end of the list
@@ -79,7 +84,7 @@ public class BestFirst {
         return xDiff * xDiff + yDiff * yDiff;
     }
 
-    private static void printPath(ArrayList<String> path) {
+    public void printPath(ArrayList<String> path) {
         System.out.print("Final solution: ");
         for (String node : path) System.out.printf("%s ", node);
         System.out.println();

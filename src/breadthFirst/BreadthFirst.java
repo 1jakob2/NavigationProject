@@ -9,9 +9,10 @@ public class BreadthFirst {
 
     private static Map<String, ArrayList<MapData.Destination>> adjList;
     private static Map<String, MapData.GPS> nodeList;
+    ArrayList<String> path = null;
     public BreadthFirst(String start, String end){
-        System.out.println("BreathFirst Constructor");
-        System.out.println("start: " + start + " - " + "end: " + end);
+        // System.out.println("BreathFirst Constructor");
+        // System.out.println("start: " + start + " - " + "end: " + end);
         MapData data = null;
         try {
             data = new MapData();
@@ -19,10 +20,11 @@ public class BreadthFirst {
             System.out.println("Error reading map data");
         }
         adjList = data.getAdjacencyList();
-        System.out.println("Got AdjacencyList");
-        ArrayList<String> path = breadthFirst(start, end);
-        System.out.println("Fastest Route Found");
-        printPath(path);
+        path = breadthFirst(start, end);
+    }
+
+    public ArrayList<String> getPath(){
+        return path;
     }
 
     private static ArrayList<String> breadthFirst(String start, String end) {
@@ -40,11 +42,11 @@ public class BreadthFirst {
 
             // Extend it in all possible ways, adding each new path to the end of the list
             String current = oldPath.get(oldPath.size() - 1);
-            System.out.println("Current Node: " + current);
+            // System.out.println("Current Node: " + current);
             ArrayList<MapData.Destination> connectedNodes = adjList.get(current);
-            System.out.println("connected Nodes: " + connectedNodes.size());
+            // System.out.println("connected Nodes: " + connectedNodes.size());
             for (MapData.Destination destination : connectedNodes) {
-                System.out.println("Node: " + destination.node());
+                // System.out.println("Node: " + destination.node());
                 ArrayList<String> newPath = (ArrayList<String>) oldPath.clone();
                 newPath.add(destination.node());
                 paths.add(newPath);
@@ -56,7 +58,7 @@ public class BreadthFirst {
         }
         return paths.size() == 0 ? null : paths.get(paths.size() - 1);
     }
-    private static void printPath(ArrayList<String> path) {
+    public void printPath(ArrayList<String> path) {
         System.out.print("Final solution: ");
         for (String node : path) {
             System.out.printf("%s ", node);

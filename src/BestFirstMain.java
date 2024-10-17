@@ -1,5 +1,6 @@
 import bestFirst.BestFirst;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BestFirstMain {
@@ -12,11 +13,15 @@ public class BestFirstMain {
                 "Suhr16", "Suhr17", "Suhr18", "Suhr19", "Suhr20"
         };
         String endLocation = "Schänzlihalde/1";
-
+        ArrayList<String> node = null;
         long startTime = System.nanoTime();
         for (int i = 0; i < 20; i++) {
             String start = startLocations[i % startLocations.length];
             BestFirst bestFirst = new BestFirst(start, endLocation);
+            node = bestFirst.getNode();
+            // bestFirst.printPath(node);
+            System.out.println("Ecken: " + node.size());
+            System.out.println("------------------");
             }
         long endTime = System.nanoTime();
         double durationInSeconds = (endTime - startTime) / 1_000_000_000.0;

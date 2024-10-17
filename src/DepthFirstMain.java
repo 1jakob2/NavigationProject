@@ -1,6 +1,8 @@
 import breadthFirst.BreadthFirst;
 import depthFirst.DepthFirst;
 
+import java.util.ArrayList;
+
 public class DepthFirstMain {
     public static void main(String[] args) {
         String[] startLocations = {
@@ -10,15 +12,20 @@ public class DepthFirstMain {
                 "Suhr16", "Suhr17", "Suhr18", "Suhr19", "Suhr20"
         };
         String endLocation = "Schänzlihalde/1";
-
+        ArrayList<String> ecken = null;
         long startTime = System.nanoTime();
         for (int i = 0; i < 20; i++) {
             String start = startLocations[i % startLocations.length];
             DepthFirst bestFirst = new DepthFirst(start, endLocation);
+            ecken = bestFirst.getPath();
+            bestFirst.printPath(ecken);
+            System.out.println("Anzahl Ecken: " + ecken.size());
+            System.out.println("----------------");
         }
         long endTime = System.nanoTime();
         double durationInSeconds = (endTime - startTime) / 1_000_000_000.0;
         System.out.println("Dauer: " + durationInSeconds + " Sekunden");
         System.out.println("------------------------------------------");
+
     }
 }
