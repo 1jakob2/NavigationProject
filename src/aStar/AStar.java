@@ -7,11 +7,11 @@ import MapData.MapData;
 public class AStar {
     private record Path(ArrayList<String> nodes, double distanceSoFar, double distanceToGoal) {};
 
-    private static Map<String, ArrayList<MapData.Destination>> adjList;
-    private static Map<String, MapData.GPS> nodeList;
+    private Map<String, ArrayList<MapData.Destination>> adjList;
+    private Map<String, MapData.GPS> nodeList;
 
-    private static Map<String, NodeInfo> searchInfo = new HashMap<>();
-    private static ArrayList<String> queue = new ArrayList<>();
+    private Map<String, NodeInfo> searchInfo = new HashMap<>();
+    private ArrayList<String> queue = new ArrayList<>();
 
     List<String> path = null;
     public AStar(String start, String end){
@@ -31,7 +31,7 @@ public class AStar {
         return path;
     }
 
-    private static List<String> aStar(String start, String end) {
+    private List<String> aStar(String start, String end) {
         // Initialize the search-info with the start node
         searchInfo.put(start, new NodeInfo(0, distanceBetween(start, end), null));
         // Initialize the queue
@@ -68,7 +68,7 @@ public class AStar {
         }
     }
 
-    private static class NodeInfo {
+    private class NodeInfo {
         double distanceSoFar;
         double distanceToGoal;
         String previousNode;
@@ -80,11 +80,11 @@ public class AStar {
         }
     }
 
-    private static String findNodeLowestCost() {
+    private String findNodeLowestCost() {
         double shortestDistance = Double.MAX_VALUE;
         String result = null;
         // System.out.println("Queue start:");
-        queue.stream().forEach(System.out::println);
+        // queue.stream().forEach(System.out::println);
         // System.out.println("Queue end");
         for (String node : queue) {
             NodeInfo nodeInfo = searchInfo.get(node);
@@ -98,7 +98,7 @@ public class AStar {
         return result;
     }
 
-    private static List<String> reconstructPath(String start, String end) {
+    private List<String> reconstructPath(String start, String end) {
         ArrayList<String> nodeList = new ArrayList<>();
         nodeList.add(end);
         String currentNode = end;
@@ -111,7 +111,7 @@ public class AStar {
         return nodeList;
     }
 
-    private static double distanceBetween(String node, String goal) {
+    private double distanceBetween(String node, String goal) {
         MapData.GPS lastPos = nodeList.get(node);
         MapData.GPS goalPos = nodeList.get(goal);
         long xDiff = lastPos.east() - goalPos.east();

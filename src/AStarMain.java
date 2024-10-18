@@ -13,18 +13,20 @@ public class AStarMain {
         };
         String endLocation = "Schänzlihalde/1";
         List<String> path = null;
+
         long startTime = System.nanoTime();
         for (int i = 0; i < 20; i++) {
             String start = startLocations[i % startLocations.length];
+            System.out.println("Start: " + start+" End: " + endLocation);
             AStar bestFirst = new AStar(start, endLocation);
             path = bestFirst.getPath();
             // bestFirst.printPath(path);
-            System.out.println("Ecken: " + path.size());
+            System.out.println("Edges: " + path.size());
             System.out.println("------------------");
         }
         long endTime = System.nanoTime();
         double durationInSeconds = (endTime - startTime) / 1_000_000_000.0;
-        System.out.println("Dauer: " + durationInSeconds + " Sekunden");
+        System.out.println("Duration: " + durationInSeconds + " secondes");
         System.out.println("------------------------------------------");
     }
 }

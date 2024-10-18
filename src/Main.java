@@ -11,11 +11,11 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        String start = "Suhr30";
+        String start = "Suhr2";
         String end = "Schänzlihalde/1";
-        BreadthFirst breadthFirst = new BreadthFirst(start, end);
+        // BreadthFirst breadthFirst = new BreadthFirst(start, end);
 
-        DepthFirst depth = new DepthFirst(start, end);
+        // DepthFirst depth = new DepthFirst(start, end);
 
         //BreadthFirst breadthFirst = new BreadthFirst(start, end);
         //BestFirst bestFirst = new BestFirst(start, end);
