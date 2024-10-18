@@ -18,8 +18,8 @@ public class AStarMain {
         for (int i = 0; i < 20; i++) {
             String start = startLocations[i % startLocations.length];
             System.out.println("Start: " + start+" End: " + endLocation);
-            AStar bestFirst = new AStar(start, endLocation);
-            path = bestFirst.getPath();
+            AStar aStar = new AStar(start, endLocation);
+            path = aStar.getPath();
             // bestFirst.printPath(path);
             System.out.println("Edges: " + path.size());
             System.out.println("------------------");

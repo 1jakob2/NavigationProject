@@ -13,7 +13,7 @@ public class AStar {
     private Map<String, NodeInfo> searchInfo = new HashMap<>();
     private ArrayList<String> queue = new ArrayList<>();
 
-    List<String> path = null;
+    private List<String> path = null;
     public AStar(String start, String end){
         MapData data = null;
         try {
