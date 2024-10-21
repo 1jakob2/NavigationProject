@@ -1,9 +1,10 @@
-import breadthFirst.BreadthFirst;
-import depthFirst.DepthFirst;
+import aStar.AStar;
+import dijkstra.Dijkstra;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class DepthFirstMain {
+public class DijkstraMain {
+
     public static void main(String[] args) {
         String[] startLocations = {
                 "Suhr1", "Suhr2", "Suhr3", "Suhr4", "Suhr5",
@@ -12,20 +13,21 @@ public class DepthFirstMain {
                 "Suhr16", "Suhr17", "Suhr18", "Suhr19", "Suhr20"
         };
         String endLocation = "Schänzlihalde/1";
-        ArrayList<String> ecken = null;
+        List<String> path = null;
+
         long startTime = System.nanoTime();
         for (int i = 0; i < 20; i++) {
             String start = startLocations[i % startLocations.length];
-            DepthFirst bestFirst = new DepthFirst(start, endLocation);
-            ecken = bestFirst.getPath();
-            bestFirst.printPath(ecken);
-            System.out.println("Edges: " + ecken.size());
-            System.out.println("----------------");
+            System.out.println("Start: " + start+" End: " + endLocation);
+            Dijkstra dijkstra = new Dijkstra(start, endLocation);
+            path = dijkstra.getPath();
+            // bestFirst.printPath(path);
+            System.out.println("Edges: " + path.size());
+            System.out.println("------------------");
         }
         long endTime = System.nanoTime();
         double durationInSeconds = (endTime - startTime) / 1_000_000_000.0;
-        System.out.println("Duration: " + durationInSeconds + " seconds");
+        System.out.println("Duration: " + durationInSeconds + " secondes");
         System.out.println("------------------------------------------");
-
     }
 }

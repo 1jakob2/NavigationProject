@@ -6,8 +6,12 @@ import java.util.*;
 
 public class Dijkstra {
 
-    private static Map<String, ArrayList<MapData.Destination>> adjList;
-    private static Map<String, MapData.GPS> nodeList;
+    private Map<String, ArrayList<MapData.Destination>> adjList;
+    private Map<String, MapData.GPS> nodeList;
+    private record Node(String name, double distance){};
+    private List<String> path = null;
+
+
 
     public Dijkstra(String start, String end){
         MapData data = null;
@@ -19,11 +23,11 @@ public class Dijkstra {
         adjList = data.getAdjacencyList();
         nodeList = data.getNodes();
 
-        List<String> path = dijkstra(start, end);
-        printPath(path);
+        path = dijkstra(start, end);
+        //printPath(path);
     }
 
-    private static List<String> dijkstra (String start, String end){
+    private List<String> dijkstra (String start, String end){
         // sorts the queue so that the shortest distance comes in first
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>(Comparator.comparingDouble(node -> node.distance));
         Map<String, Double> shortestDistances = new HashMap<>();
@@ -56,10 +60,10 @@ public class Dijkstra {
             }
 
             if (adjList.containsKey(currentNode)) {
-                System.out.println();
-                System.out.println("currentNode: " + currentNode);
-                adjList.get(currentNode).stream().forEach(System.out::println);
-                System.out.println();
+                //System.out.println();
+                //System.out.println("currentNode: " + currentNode);
+                //adjList.get(currentNode).stream().forEach(System.out::println);
+                //System.out.println();
 
                 // find all neighbors of currentNode and iterate over them
                 for (MapData.Destination neighborNode : adjList.get(currentNode)) {
@@ -73,7 +77,7 @@ public class Dijkstra {
                     //System.out.println("shortestDistance: " + currentNode + " " + shortestDistances.get(currentNode));
 
                     //System.out.println("newDistance: " + currentNode + " " + newDistance);
-                    System.out.println("Distance " + neighborName + ": " + newDistance + " " + shortestDistances.get(neighborName));
+                    //System.out.println("Distance " + neighborName + ": " + newDistance + " " + shortestDistances.get(neighborName));
                     // if newDistance is shorter than distance of neighbor (they're all initialised with infinity, therefore first time will always be true)
                     if (newDistance < shortestDistances.get(neighborName)) {
                         shortestDistances.put(neighborName, newDistance);
@@ -89,7 +93,7 @@ public class Dijkstra {
     }
 
     // Helper method to reconstruct the shortest path from startNode to destinationNode
-    public static List<String> reconstructPath(Map<String, String> previousNode, String startNode, String destinationNode) {
+    public List<String> reconstructPath(Map<String, String> previousNode, String startNode, String destinationNode) {
         List<String> path = new ArrayList<>();
         String currentNode = destinationNode;
 
@@ -108,16 +112,7 @@ public class Dijkstra {
         return path;
     }
 
-    private static class Node {
-        String name;
-        double distance;
-
-        Node(String name, double distance) {
-            this.name = name;
-            this.distance = distance;
-        }
-    }
-    private static double distanceBetween(String node, String goal) {
+    private double distanceBetween(String node, String goal) {
         MapData.GPS lastPos = nodeList.get(node);
         MapData.GPS goalPos = nodeList.get(goal);
         long xDiff = lastPos.east() - goalPos.east();
@@ -125,9 +120,12 @@ public class Dijkstra {
         return Math.sqrt(xDiff * xDiff + yDiff * yDiff);
     }
 
-    private static void printPath(List<String> path) {
+    private void printPath(List<String> path) {
         System.out.print("Final solution: ");
         for (String node : path) System.out.printf("%s ", node);
         System.out.println();
+    }
+    public List<String> getPath() {
+        return path;
     }
 }

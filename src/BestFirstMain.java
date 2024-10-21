@@ -20,12 +20,12 @@ public class BestFirstMain {
             BestFirst bestFirst = new BestFirst(start, endLocation);
             node = bestFirst.getNode();
             // bestFirst.printPath(node);
-            System.out.println("Ecken: " + node.size());
+            System.out.println("Edges: " + node.size());
             System.out.println("------------------");
             }
         long endTime = System.nanoTime();
         double durationInSeconds = (endTime - startTime) / 1_000_000_000.0;
-        System.out.println("Dauer: " + durationInSeconds + " Sekunden");
+        System.out.println("Duration: " + durationInSeconds + " seconds");
         System.out.println("------------------------------------------");
 
     }

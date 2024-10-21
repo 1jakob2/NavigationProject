@@ -15,17 +15,17 @@ public class BreadthFirstMain {
 
         ArrayList<String> path = null;
         long startTime = System.nanoTime();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 20; i++) {
             String start = startLocations[i % startLocations.length];
             BreadthFirst bestFirst = new BreadthFirst(start, endLocation);
             path = bestFirst.getPath();
             // bestFirst.printPath(path);
-            System.out.println("Ecken: " + path.size());
+            System.out.println("Edges: " + path.size());
             System.out.println("-------------");
         }
         long endTime = System.nanoTime();
         double durationInSeconds = (endTime - startTime) / 1_000_000_000.0;
-        System.out.println("Dauer: " + durationInSeconds + " Sekunden");
+        System.out.println("Duration: " + durationInSeconds + " seconds");
         System.out.println("------------------------------------------");
     }
 }
