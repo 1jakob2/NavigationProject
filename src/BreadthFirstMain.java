@@ -14,18 +14,26 @@ public class BreadthFirstMain {
         String endLocation = "Schänzlihalde/1";
 
         ArrayList<String> path = null;
+        int loopCounter = 0;
+
         long startTime = System.nanoTime();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < startLocations.length; i++) {
             String start = startLocations[i % startLocations.length];
-            BreadthFirst bestFirst = new BreadthFirst(start, endLocation);
-            path = bestFirst.getPath();
-            // bestFirst.printPath(path);
+            System.out.println("Start: " + start + ", End: " + endLocation);
+
+            BreadthFirst breadthFirst = new BreadthFirst(start, endLocation);
+            path = breadthFirst.getPath();
+            loopCounter = breadthFirst.getLoopCounter() + loopCounter;
+
+            path.stream().forEach(System.out::println);
             System.out.println("Edges: " + path.size());
+            System.out.println("Number of loops: " + breadthFirst.getLoopCounter());
             System.out.println("-------------");
         }
         long endTime = System.nanoTime();
         double durationInSeconds = (endTime - startTime) / 1_000_000_000.0;
         System.out.println("Duration: " + durationInSeconds + " seconds");
+        System.out.println("Total number of loops: " + loopCounter);
         System.out.println("------------------------------------------");
     }
 }

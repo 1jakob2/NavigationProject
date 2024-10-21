@@ -8,9 +8,10 @@ import java.util.Map;
 
 public class DepthFirst {
 
-    private static Map<String, ArrayList<MapData.Destination>> adjList = new HashMap<>();
+    private Map<String, ArrayList<MapData.Destination>> adjList = new HashMap<>();
+    private ArrayList<String> path;
+    private int loopCounter = 0;// find how many times the algorithm goes through loops to find a result
 
-    ArrayList<String> path;
     public DepthFirst(String current, String end){
         MapData data = null;
         try {
@@ -19,7 +20,7 @@ public class DepthFirst {
             System.out.println("Error reading map data");
         }
         adjList = data.getAdjacencyList();
-        System.out.println("Fastest Route Found");
+        //System.out.println("Fastest Route Found");
 
         path = depthFirst(current, end);
     }
@@ -34,7 +35,7 @@ public class DepthFirst {
         System.out.println();
     }
 
-    private static ArrayList<String> depthFirst(String start, String end) {
+    private ArrayList<String> depthFirst(String start, String end) {
         ArrayList<String> path = new ArrayList<>();
         path.add(start); // Add starting node to path
 
@@ -42,12 +43,13 @@ public class DepthFirst {
         return depthFirstRecursive(path, start, end);
     }
 
-    private static ArrayList<String> depthFirstRecursive(ArrayList<String> path, String current, String end) {
+    private ArrayList<String> depthFirstRecursive(ArrayList<String> path, String current, String end) {
         if (current.equals(end)) { // Base case - we are finished!
             // Nothing to do...
         } else {// Recursive case - add a node to the path
             ArrayList<MapData.Destination> connectedNodes = adjList.get(current);
             for (MapData.Destination c : connectedNodes) {
+                loopCounter++;
                 if (!haveBeenThere(path, String.valueOf(c.node()))) {
                     path.add(String.valueOf(c.node()));
                     depthFirstRecursive(path, String.valueOf(c.node()), end);
@@ -62,12 +64,16 @@ public class DepthFirst {
         return path;
     }
 
-    private static boolean haveBeenThere(ArrayList<String> path, String where) {
+    private boolean haveBeenThere(ArrayList<String> path, String where) {
         boolean found = false;
         for (String node : path) {
+            loopCounter++;
             found = found || node == where;
         }
         return found;
     }
 
+    public int getLoopCounter() {
+        return loopCounter;
+    }
 }

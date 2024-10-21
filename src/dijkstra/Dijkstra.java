@@ -10,8 +10,7 @@ public class Dijkstra {
     private Map<String, MapData.GPS> nodeList;
     private record Node(String name, double distance){};
     private List<String> path = null;
-
-
+    private int loopCounter = 0;// find how many times the algorithm goes through loops to find a result
 
     public Dijkstra(String start, String end){
         MapData data = null;
@@ -67,6 +66,7 @@ public class Dijkstra {
 
                 // find all neighbors of currentNode and iterate over them
                 for (MapData.Destination neighborNode : adjList.get(currentNode)) {
+                    loopCounter++;
                     String neighborName = neighborNode.node();
                     // Calculate the actual distance using GPS coordinates
                     double edgeWeight = distanceBetween(currentNode, neighborName); // calculate distance with the GPS coordinates for every neighborNode
@@ -108,7 +108,7 @@ public class Dijkstra {
 
         path.add(startNode);
         Collections.reverse(path); // Reverse the path to get the correct order
-        path.stream().forEach(System.out::println);
+        //path.stream().forEach(System.out::println);
         return path;
     }
 
@@ -127,5 +127,8 @@ public class Dijkstra {
     }
     public List<String> getPath() {
         return path;
+    }
+    public int getLoopCounter() {
+        return loopCounter;
     }
 }

@@ -8,10 +8,10 @@ import MapData.MapData;
 public class BestFirst {
     private record Path(ArrayList<String> nodes, long distanceToGoal) {};
 
-    private static Map<String, ArrayList<MapData.Destination>> adjList;
-    private static Map<String, MapData.GPS> nodeList;
-
-    Path path = null;
+    private Map<String, ArrayList<MapData.Destination>> adjList;
+    private Map<String, MapData.GPS> nodeList;
+    private Path path = null;
+    private int loopCounter = 0;// find how many times the algorithm goes through loops to find a result
     public BestFirst(String start, String end){
         MapData data = null;
         try {
@@ -29,7 +29,7 @@ public class BestFirst {
         return path.nodes;
     }
 
-    private static Path bestFirst(String start, String end) {
+    private Path bestFirst(String start, String end) {
         // Create path list and add a starting path to the list
         ArrayList<Path> paths = new ArrayList<>();
         ArrayList<String> startingNodeList = new ArrayList<>(Arrays.asList(start));
@@ -50,6 +50,7 @@ public class BestFirst {
             String lastNode = oldNodes.get(oldNodes.size() - 1);
             ArrayList<MapData.Destination> connectedNodes = adjList.get(lastNode);
             for (MapData.Destination destination : connectedNodes) {
+                loopCounter++;
                 if (!oldNodes.contains(destination.node())) {
                     ArrayList<String> newNodes = (ArrayList<String>) oldNodes.clone();
                     newNodes.add(destination.node());
@@ -64,10 +65,11 @@ public class BestFirst {
         return paths.size() == 0 ? null : paths.get(paths.size() - 1);
     }
 
-    private static int bestPath(ArrayList<Path> paths, String goal) {
+    private int bestPath(ArrayList<Path> paths, String goal) {
         int bestPath = 0;
         long smallestDistance = paths.get(0).distanceToGoal;
         for (int i = 1; i < paths.size(); i++) {
+            loopCounter++;
             if (paths.get(i).distanceToGoal < smallestDistance) {
                 bestPath = i;
                 smallestDistance = paths.get(i).distanceToGoal;
@@ -76,7 +78,7 @@ public class BestFirst {
         return bestPath;
     }
 
-    private static long distanceBetween(String node, String goal) {
+    private long distanceBetween(String node, String goal) {
         MapData.GPS lastPos = nodeList.get(node);
         MapData.GPS goalPos = nodeList.get(goal);
         long xDiff = lastPos.east() - goalPos.east();
@@ -88,5 +90,9 @@ public class BestFirst {
         System.out.print("Final solution: ");
         for (String node : path) System.out.printf("%s ", node);
         System.out.println();
+    }
+
+    public int getLoopCounter() {
+        return loopCounter;
     }
 }

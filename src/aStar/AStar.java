@@ -12,8 +12,8 @@ public class AStar {
 
     private Map<String, NodeInfo> searchInfo = new HashMap<>();
     private ArrayList<String> queue = new ArrayList<>();
-
     private List<String> path = null;
+    private int loopCounter = 0; // find how many times the algorithm goes through loops to find a result
     public AStar(String start, String end){
         MapData data = null;
         try {
@@ -44,6 +44,7 @@ public class AStar {
             // - If a node is in search info, and we can lower its distanceTravelled, update it
             ArrayList<MapData.Destination> connectedNodes = adjList.get(currentNode);
             for (MapData.Destination destination : connectedNodes) {
+                loopCounter++;
                 double distance = destination.distance() + searchInfo.get(currentNode).distanceSoFar;
                 if (searchInfo.containsKey(destination.node())) {
                     NodeInfo nodeInfo = searchInfo.get(destination.node());
@@ -87,6 +88,7 @@ public class AStar {
         // queue.stream().forEach(System.out::println);
         // System.out.println("Queue end");
         for (String node : queue) {
+            loopCounter++;
             NodeInfo nodeInfo = searchInfo.get(node);
             if ((nodeInfo.distanceSoFar + nodeInfo.distanceToGoal) < shortestDistance) {
                 result = node;
@@ -123,5 +125,9 @@ public class AStar {
         System.out.print("Final solution: ");
         for (String node : path) System.out.printf("%s ", node);
         System.out.println();
+    }
+
+    public int getLoopCounter() {
+        return loopCounter;
     }
 }
