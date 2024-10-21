@@ -1,6 +1,7 @@
 package dijkstra;
 
 import MapData.MapData;
+import MapData.DistanceBetween;
 
 import java.util.*;
 
@@ -10,6 +11,7 @@ public class Dijkstra {
     private Map<String, MapData.GPS> nodeList;
     private record Node(String name, double distance){};
     private List<String> path = null;
+    private DistanceBetween distanceBetween = new DistanceBetween();
     private int loopCounter = 0;// find how many times the algorithm goes through loops to find a result
 
     public Dijkstra(String start, String end){
@@ -69,7 +71,7 @@ public class Dijkstra {
                     loopCounter++;
                     String neighborName = neighborNode.node();
                     // Calculate the actual distance using GPS coordinates
-                    double edgeWeight = distanceBetween(currentNode, neighborName); // calculate distance with the GPS coordinates for every neighborNode
+                    double edgeWeight = distanceBetween.calculateDistance(currentNode, neighborName); // calculate distance with the GPS coordinates for every neighborNode
                     //System.out.println("edgeWeight: " + currentNode + " to neighbor " + neighborName + " " + edgeWeight);
 
                     double newDistance = shortestDistances.get(currentNode) + edgeWeight;
@@ -110,14 +112,6 @@ public class Dijkstra {
         Collections.reverse(path); // Reverse the path to get the correct order
         //path.stream().forEach(System.out::println);
         return path;
-    }
-
-    private double distanceBetween(String node, String goal) {
-        MapData.GPS lastPos = nodeList.get(node);
-        MapData.GPS goalPos = nodeList.get(goal);
-        long xDiff = lastPos.east() - goalPos.east();
-        long yDiff = lastPos.north() - goalPos.north();
-        return Math.sqrt(xDiff * xDiff + yDiff * yDiff);
     }
 
     private void printPath(List<String> path) {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import MapData.MapData;
+import MapData.DistanceBetween;
 
 public class BestFirst {
     private record Path(ArrayList<String> nodes, long distanceToGoal) {};
@@ -11,6 +12,7 @@ public class BestFirst {
     private Map<String, ArrayList<MapData.Destination>> adjList;
     private Map<String, MapData.GPS> nodeList;
     private Path path = null;
+    private DistanceBetween distanceBetween = new DistanceBetween();
     private int loopCounter = 0;// find how many times the algorithm goes through loops to find a result
     public BestFirst(String start, String end){
         MapData data = null;
@@ -33,7 +35,7 @@ public class BestFirst {
         // Create path list and add a starting path to the list
         ArrayList<Path> paths = new ArrayList<>();
         ArrayList<String> startingNodeList = new ArrayList<>(Arrays.asList(start));
-        paths.add(new Path(startingNodeList, distanceBetween(start, end))); // Add starting path to list
+        paths.add(new Path(startingNodeList, distanceBetween.calculateDistance(start, end))); // Add starting path to list
         // System.out.println(paths.stream().findAny());
 
         boolean solutionFound = false;
@@ -54,7 +56,7 @@ public class BestFirst {
                 if (!oldNodes.contains(destination.node())) {
                     ArrayList<String> newNodes = (ArrayList<String>) oldNodes.clone();
                     newNodes.add(destination.node());
-                    paths.add(new Path(newNodes, distanceBetween(destination.node(), end)));
+                    paths.add(new Path(newNodes, distanceBetween.calculateDistance(destination.node(), end)));
                     if (destination.node().equals(end)) {
                         solutionFound = true;
                         break; // Otherwise continue searching
@@ -76,14 +78,6 @@ public class BestFirst {
             }
         }
         return bestPath;
-    }
-
-    private long distanceBetween(String node, String goal) {
-        MapData.GPS lastPos = nodeList.get(node);
-        MapData.GPS goalPos = nodeList.get(goal);
-        long xDiff = lastPos.east() - goalPos.east();
-        long yDiff = lastPos.north() - goalPos.north();
-        return xDiff * xDiff + yDiff * yDiff;
     }
 
     public void printPath(ArrayList<String> path) {

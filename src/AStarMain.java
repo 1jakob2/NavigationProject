@@ -1,3 +1,4 @@
+import MapData.DistanceBetween;
 import aStar.AStar;
 import bestFirst.BestFirst;
 
@@ -14,6 +15,7 @@ public class AStarMain {
         String endLocation = "Schänzlihalde/1";
         List<String> path = null;
         int loopCounter = 0;
+        long totalDistance = 0;
 
         long startTime = System.nanoTime();
         for (int i = 0; i < startLocations.length; i++) {
@@ -24,13 +26,29 @@ public class AStarMain {
             path = aStar.getPath();
             loopCounter = aStar.getLoopCounter() + loopCounter;
 
+            DistanceBetween distanceBetween = new DistanceBetween();
+            long distance = 0;
+            int currentNode = 0;
+            for(int nextNode = 0; nextNode < path.size(); nextNode++){
+                distance = distanceBetween.calculateDistance(path.get(currentNode), path.get(nextNode)) + distance;
+                //System.out.println(path.get(currentNode) + " - " + path.get(i) + " distance: " + distance);
+                if(nextNode == 0){
+                    currentNode = nextNode -1; // current node has to be -1 to calculate the distance
+                }
+                currentNode++;
+            }
+            totalDistance = distance + totalDistance;
+
             path.stream().forEach(System.out::println);
             System.out.println("Edges: " + path.size());
+            System.out.println("Distance: " + distance + " meters");
             System.out.println("Number of loops: " + aStar.getLoopCounter());
             System.out.println("------------------");
         }
         long endTime = System.nanoTime();
         double durationInSeconds = (endTime - startTime) / 1_000_000_000.0;
+
+        System.out.println("Total distance: " + totalDistance + " meters");
         System.out.println("Duration: " + durationInSeconds + " secondes");
         System.out.println("Total number of loops: " + loopCounter);
         System.out.println("------------------------------------------");

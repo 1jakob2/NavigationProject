@@ -3,6 +3,7 @@ package aStar;
 import java.util.*;
 
 import MapData.MapData;
+import MapData.DistanceBetween;
 
 public class AStar {
     private record Path(ArrayList<String> nodes, double distanceSoFar, double distanceToGoal) {};
@@ -13,6 +14,7 @@ public class AStar {
     private Map<String, NodeInfo> searchInfo = new HashMap<>();
     private ArrayList<String> queue = new ArrayList<>();
     private List<String> path = null;
+    private DistanceBetween distanceBetween = new DistanceBetween();
     private int loopCounter = 0; // find how many times the algorithm goes through loops to find a result
     public AStar(String start, String end){
         MapData data = null;
@@ -33,7 +35,7 @@ public class AStar {
 
     private List<String> aStar(String start, String end) {
         // Initialize the search-info with the start node
-        searchInfo.put(start, new NodeInfo(0, distanceBetween(start, end), null));
+        searchInfo.put(start, new NodeInfo(0, distanceBetween.calculateDistance(start, end), null));
         // Initialize the queue
         queue.add(start);
 
@@ -54,7 +56,7 @@ public class AStar {
                         queue.add(destination.node()); // Add into the queue, only if cost has been reduced
                     }
                 } else {
-                    NodeInfo nodeInfo = new NodeInfo(distance, distanceBetween(destination.node(), end), currentNode);
+                    NodeInfo nodeInfo = new NodeInfo(distance, distanceBetween.calculateDistance(destination.node(), end), currentNode);
                     searchInfo.put(destination.node(), nodeInfo);
                     queue.add(destination.node());
                 }
@@ -111,14 +113,6 @@ public class AStar {
         }
         Collections.reverse(nodeList);
         return nodeList;
-    }
-
-    private double distanceBetween(String node, String goal) {
-        MapData.GPS lastPos = nodeList.get(node);
-        MapData.GPS goalPos = nodeList.get(goal);
-        long xDiff = lastPos.east() - goalPos.east();
-        long yDiff = lastPos.north() - goalPos.north();
-        return Math.sqrt(xDiff * xDiff + yDiff * yDiff);
     }
 
     public void printPath(List<String> path) {
