@@ -4,6 +4,7 @@ import aStar.AStar;
 import bestFirst.BestFirst;
 import breadthFirst.BreadthFirst;
 import depthFirst.DepthFirst;
+import dijkstra.Dijkstra;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,12 +14,25 @@ public class Main {
     public static void main(String[] args) {
         String start = "Suhr2";
         String end = "Schänzlihalde/1";
-        // BreadthFirst breadthFirst = new BreadthFirst(start, end);
 
-        // DepthFirst depth = new DepthFirst(start, end);
+        System.out.println("Breadth First:");
+        BreadthFirst breadthFirst = new BreadthFirst(start, end);
+        breadthFirst.printPath();
 
-        //BreadthFirst breadthFirst = new BreadthFirst(start, end);
-        //BestFirst bestFirst = new BestFirst(start, end);
+        System.out.println("Depth First:");
+        DepthFirst depthFirst = new DepthFirst(start, end);
+        depthFirst.printPath();
+
+        System.out.println("Best First:");
+        BestFirst bestFirst = new BestFirst(start, end);
+        bestFirst.printPath();
+
+        System.out.println("A*:");
         AStar aStar = new AStar(start, end);
+        aStar.printPath();
+
+        System.out.println("Dijkstra:");
+        Dijkstra dijkstra = new Dijkstra(start, end);
+        dijkstra.printPath();
     }
 }

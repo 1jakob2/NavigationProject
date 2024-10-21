@@ -61,12 +61,10 @@ public class BreadthFirst {
         }
         return paths.size() == 0 ? null : paths.get(paths.size() - 1);
     }
-    public void printPath(ArrayList<String> path) {
+    public void printPath() {
         System.out.print("Final solution: ");
-        for (String node : path) {
-            System.out.printf("%s ", node);
-            System.out.println();
-        }
+        for (String node : path) System.out.printf("%s ", node);
+        System.out.println();
     }
 
     public int getLoopCounter() {

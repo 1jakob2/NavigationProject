@@ -80,9 +80,9 @@ public class BestFirst {
         return bestPath;
     }
 
-    public void printPath(ArrayList<String> path) {
+    public void printPath() {
         System.out.print("Final solution: ");
-        for (String node : path) System.out.printf("%s ", node);
+        for (String node : path.nodes()) System.out.printf("%s ", node);
         System.out.println();
     }
 

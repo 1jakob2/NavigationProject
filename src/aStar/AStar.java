@@ -115,7 +115,7 @@ public class AStar {
         return nodeList;
     }
 
-    public void printPath(List<String> path) {
+    public void printPath() {
         System.out.print("Final solution: ");
         for (String node : path) System.out.printf("%s ", node);
         System.out.println();
