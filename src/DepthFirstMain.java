@@ -1,4 +1,5 @@
 import MapData.DistanceBetween;
+import MapData.MemoryUtilisation;
 import breadthFirst.BreadthFirst;
 import depthFirst.DepthFirst;
 
@@ -17,6 +18,7 @@ public class DepthFirstMain {
         int loopCounter = 0;
         long totalDistance = 0;
 
+        long memoryBefore = MemoryUtilisation.getMemoryUsage();
         long startTime = System.nanoTime();
         for (int i = 0; i < startLocations.length; i++) {
             String start = startLocations[i % startLocations.length];
@@ -45,12 +47,18 @@ public class DepthFirstMain {
             System.out.println("Number of loops: " + depthFirst.getLoopCounter());
             System.out.println("----------------");
         }
+        double memoryUsedPercentage = MemoryUtilisation.getMemoryUsagePercentage();
         long endTime = System.nanoTime();
         double durationInSeconds = (endTime - startTime) / 1_000_000_000.0;
+
+        long memoryAfter = MemoryUtilisation.getMemoryUsage();
+        long memoryUsed = memoryAfter - memoryBefore;
 
         System.out.println("Total distance: " + totalDistance + " meters");
         System.out.println("Duration: " + durationInSeconds + " seconds");
         System.out.println("Total number of loops: " + loopCounter);
+        System.out.println("Memory Used: " + memoryUsed + " Bytes");
+        System.out.println("Memory Used Percentage: " + memoryUsedPercentage + "%");
         System.out.println("------------------------------------------");
 
     }

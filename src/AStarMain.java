@@ -1,4 +1,5 @@
 import MapData.DistanceBetween;
+import MapData.MemoryUtilisation;
 import aStar.AStar;
 import bestFirst.BestFirst;
 
@@ -17,6 +18,7 @@ public class AStarMain {
         int loopCounter = 0;
         long totalDistance = 0;
 
+        long memoryBefore = MemoryUtilisation.getMemoryUsage();
         long startTime = System.nanoTime();
         for (int i = 0; i < startLocations.length; i++) {
             String start = startLocations[i % startLocations.length];
@@ -45,12 +47,18 @@ public class AStarMain {
             System.out.println("Number of loops: " + aStar.getLoopCounter());
             System.out.println("------------------");
         }
+        double memoryUsedPercentage = MemoryUtilisation.getMemoryUsagePercentage();
         long endTime = System.nanoTime();
         double durationInSeconds = (endTime - startTime) / 1_000_000_000.0;
+
+        long memoryAfter = MemoryUtilisation.getMemoryUsage();
+        long memoryUsed = memoryAfter - memoryBefore;
 
         System.out.println("Total distance: " + totalDistance + " meters");
         System.out.println("Duration: " + durationInSeconds + " secondes");
         System.out.println("Total number of loops: " + loopCounter);
+        System.out.println("Memory Used: " + memoryUsed + " Bytes");
+        System.out.println("Memory Used Percentage: " + memoryUsedPercentage + "%");
         System.out.println("------------------------------------------");
     }
 }
