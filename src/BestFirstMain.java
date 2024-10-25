@@ -10,11 +10,12 @@ public class BestFirstMain {
 
         String[] startLocations = {
                 "Buempliz/Gotenstrasse/1", "Buempliz/Schwabstrasse/1", "Buempliz/Keltenstrasse/2", "Buempliz/Buchdruckerweg/1", "Buempliz/Lorbeerstrasse/1",
-                "Suhr16", "Suhr17", "Suhr18", "Suhr19", "Suhr20",
-                "Suhr21", "Suhr22", "Suhr23", "Suhr24", "Suhr25",
+                "Suhr16", "Suhr17", "Buempliz/Buemplitzstrasse/1", "Suhr19", "Suhr20",
+                "Buempliz/Stapfenackerstrasse/1", "Suhr22", "Suhr23", "Suhr24", "Suhr25",
                 "Lagerweg/1", "Nordring/2", "Wyttenbach/4", "Birkenweg/1", "Rönerweg/1"
         };
-        String endLocation = "Bärenplatz/1";
+
+        String[] endLocation = {"Buempliz/Nord/1", "Nordring/5", "Suhr1"};
         ArrayList<String> path = null;
         int loopCounter = 0;
         long totalDistance = 0;
@@ -23,30 +24,34 @@ public class BestFirstMain {
         long startTime = System.nanoTime();
         for (int i = 0; i < startLocations.length; i++) {
             String start = startLocations[i % startLocations.length];
-            System.out.println("Start: " + start +", End: " + endLocation);
+            for (int n = 0; n < endLocation.length; n++) {
+                String end = endLocation[i % endLocation.length];
+                System.out.println("Start: " + start +", End: " + end);
 
-            BestFirst bestFirst = new BestFirst(start, endLocation);
-            path = bestFirst.getNode();
-            loopCounter = bestFirst.getLoopCounter() + loopCounter;
+                BestFirst bestFirst = new BestFirst(start, end);
+                path = bestFirst.getNode();
+                loopCounter = bestFirst.getLoopCounter() + loopCounter;
 
-            DistanceBetween distanceBetween = new DistanceBetween();
-            long distance = 0;
-            int currentNode = 0;
-            for(int nextNode = 0; nextNode < path.size(); nextNode++){
-                distance = distanceBetween.calculateDistance(path.get(currentNode), path.get(nextNode)) + distance;
-                //System.out.println(path.get(currentNode) + " - " + path.get(i) + " distance: " + distance);
-                if(nextNode == 0){
-                    currentNode = nextNode -1; // current node has to be -1 to calculate the distance
+                DistanceBetween distanceBetween = new DistanceBetween();
+                long distance = 0;
+                int currentNode = 0;
+                for(int nextNode = 0; nextNode < path.size(); nextNode++){
+                    distance = distanceBetween.calculateDistance(path.get(currentNode), path.get(nextNode)) + distance;
+                    //System.out.println(path.get(currentNode) + " - " + path.get(i) + " distance: " + distance);
+                    if(nextNode == 0){
+                        currentNode = nextNode -1; // current node has to be -1 to calculate the distance
+                    }
+                    currentNode++;
                 }
-                currentNode++;
-            }
-            totalDistance = distance + totalDistance;
+                totalDistance = distance + totalDistance;
 
-            path.stream().forEach(System.out::println);
-            System.out.println("Edges: " + path.size());
-            System.out.println("Distance: " + distance + " meters");
-            System.out.println("Number of loops: " + bestFirst.getLoopCounter());
-            System.out.println("------------------");
+                path.stream().forEach(System.out::println);
+                System.out.println("Edges: " + path.size());
+                System.out.println("Distance: " + distance + " meters");
+                System.out.println("Number of loops: " + bestFirst.getLoopCounter());
+                System.out.println("------------------");
+            }
+
             }
         double memoryUsedPercentage = MemoryUtilisation.getMemoryUsagePercentage();
         long endTime = System.nanoTime();

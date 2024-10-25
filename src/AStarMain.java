@@ -13,7 +13,7 @@ public class AStarMain {
                 "Buempliz/Stapfenackerstrasse/1", "Suhr22", "Suhr23", "Suhr24", "Suhr25",
                 "Lagerweg/1", "Nordring/2", "Wyttenbach/4", "Birkenweg/1", "Rönerweg/1"
         };
-        String endLocation = "Schänzlihalde/1";
+        String[] endLocation = {"Buempliz/Nord/1", "Nordring/5", "Suhr1"};
 
         List<String> path = null;
         int loopCounter = 0;
@@ -23,30 +23,34 @@ public class AStarMain {
         long startTime = System.nanoTime();
         for (int i = 0; i < startLocations.length; i++) {
             String start = startLocations[i % startLocations.length];
-            System.out.println("Start: " + start +", End: " + endLocation);
+            for (int n = 0; n < endLocation.length; n++) {
+                String end = endLocation[i % endLocation.length];
+                System.out.println("Start: " + start +", End: " + end);
 
-            AStar aStar = new AStar(start, endLocation);
-            path = aStar.getPath();
-            loopCounter = aStar.getLoopCounter() + loopCounter;
+                AStar aStar = new AStar(start, end);
+                path = aStar.getPath();
+                loopCounter = aStar.getLoopCounter() + loopCounter;
 
-            DistanceBetween distanceBetween = new DistanceBetween();
-            long distance = 0;
-            int currentNode = 0;
-            for(int nextNode = 0; nextNode < path.size(); nextNode++){
-                distance = distanceBetween.calculateDistance(path.get(currentNode), path.get(nextNode)) + distance;
-                //System.out.println(path.get(currentNode) + " - " + path.get(i) + " distance: " + distance);
-                if(nextNode == 0){
-                    currentNode = nextNode -1; // current node has to be -1 to calculate the distance
+                DistanceBetween distanceBetween = new DistanceBetween();
+                long distance = 0;
+                int currentNode = 0;
+                for(int nextNode = 0; nextNode < path.size(); nextNode++){
+                    distance = distanceBetween.calculateDistance(path.get(currentNode), path.get(nextNode)) + distance;
+                    //System.out.println(path.get(currentNode) + " - " + path.get(i) + " distance: " + distance);
+                    if(nextNode == 0){
+                        currentNode = nextNode -1; // current node has to be -1 to calculate the distance
+                    }
+                    currentNode++;
                 }
-                currentNode++;
-            }
-            totalDistance = distance + totalDistance;
+                totalDistance = distance + totalDistance;
 
-            path.stream().forEach(System.out::println);
-            System.out.println("Edges: " + path.size());
-            System.out.println("Distance: " + distance + " meters");
-            System.out.println("Number of loops: " + aStar.getLoopCounter());
-            System.out.println("------------------");
+                path.stream().forEach(System.out::println);
+                System.out.println("Edges: " + path.size());
+                System.out.println("Distance: " + distance + " meters");
+                System.out.println("Number of loops: " + aStar.getLoopCounter());
+                System.out.println("------------------");
+            }
+
         }
         double memoryUsedPercentage = MemoryUtilisation.getMemoryUsagePercentage();
         long endTime = System.nanoTime();
