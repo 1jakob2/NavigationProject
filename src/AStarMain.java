@@ -14,17 +14,26 @@ public class AStarMain {
                 "Suhr16", "Suhr17", "Suhr18", "Suhr19", "Suhr20"
         };
         String endLocation = "Schänzlihalde/1";
+
+        String[] startLocations2 = {
+                "Buempliz/Gotenstrasse/1", "Buempliz/Schwabstrasse/1", "Buempliz/Keltenstrasse/2", "Buempliz/Buchdruckerweg/1", "Buempliz/Lorbeerstrasse/1",
+                "Suhr16", "Suhr17", "Suhr18", "Suhr19", "Suhr20",
+                "Suhr21", "Suhr22", "Suhr23", "Suhr24", "Suhr25",
+                "Lagerweg/1", "Nordring/2", "Wyttenbach/4", "Birkenweg/1", "Rönerweg/1"
+        };
+        String endLocation2 = "Bärenplatz/1";
+
         List<String> path = null;
         int loopCounter = 0;
         long totalDistance = 0;
 
         long memoryBefore = MemoryUtilisation.getMemoryUsage();
         long startTime = System.nanoTime();
-        for (int i = 0; i < startLocations.length; i++) {
-            String start = startLocations[i % startLocations.length];
-            System.out.println("Start: " + start +", End: " + endLocation);
+        for (int i = 0; i < startLocations2.length; i++) {
+            String start = startLocations2[i % startLocations2.length];
+            System.out.println("Start: " + start +", End: " + endLocation2);
 
-            AStar aStar = new AStar(start, endLocation);
+            AStar aStar = new AStar(start, endLocation2);
             path = aStar.getPath();
             loopCounter = aStar.getLoopCounter() + loopCounter;
 
