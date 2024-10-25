@@ -7,14 +7,13 @@ import java.util.List;
 
 public class AStarMain {
     public static void main(String[] args) {
-
         String[] startLocations = {
                 "Buempliz/Gotenstrasse/1", "Buempliz/Schwabstrasse/1", "Buempliz/Keltenstrasse/2", "Buempliz/Buchdruckerweg/1", "Buempliz/Lorbeerstrasse/1",
-                "Suhr16", "Suhr17", "Suhr18", "Suhr19", "Suhr20",
-                "Suhr21", "Suhr22", "Suhr23", "Suhr24", "Suhr25",
+                "Suhr16", "Suhr17", "Buempliz/Buemplitzstrasse/1", "Suhr19", "Suhr20",
+                "Buempliz/Stapfenackerstrasse/1", "Suhr22", "Suhr23", "Suhr24", "Suhr25",
                 "Lagerweg/1", "Nordring/2", "Wyttenbach/4", "Birkenweg/1", "Rönerweg/1"
         };
-        String endLocation = "Bärenplatz/1";
+        String endLocation = "Schänzlihalde/1";
 
         List<String> path = null;
         int loopCounter = 0;
