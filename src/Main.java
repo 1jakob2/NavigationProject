@@ -12,8 +12,8 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        String start = "Suhr2";
-        String end = "Schänzlihalde/1";
+        String start = "Buempliz/Buchdruckerweg/1";
+        String end = "Bärenplatz/1";
 
         System.out.println("Breadth First:");
         BreadthFirst breadthFirst = new BreadthFirst(start, end);

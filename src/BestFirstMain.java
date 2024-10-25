@@ -9,12 +9,12 @@ public class BestFirstMain {
     public static void main(String[] args) {
 
         String[] startLocations = {
-                "Bärenplatz/1", "Lagerweg/1", "Birkenweg/1", "Rönerweg/1", "Wyttenbach/4",
-                "Suhr6", "Suhr7", "Suhr8", "Suhr9", "Suhr10",
-                "Suhr11", "Suhr12", "Suhr13", "Suhr14", "Suhr15",
-                "Buempliz/Betlehemstrasse/1", "Buempliz/Lorbeerstrasse/1", "Buempliz/Bernstrasse/2", "Buempliz/Nord/1", "Buempliz/Keltenstrasse/3"
+                "Buempliz/Gotenstrasse/1", "Buempliz/Schwabstrasse/1", "Buempliz/Keltenstrasse/2", "Buempliz/Buchdruckerweg/1", "Buempliz/Lorbeerstrasse/1",
+                "Suhr16", "Suhr17", "Suhr18", "Suhr19", "Suhr20",
+                "Suhr21", "Suhr22", "Suhr23", "Suhr24", "Suhr25",
+                "Lagerweg/1", "Nordring/2", "Wyttenbach/4", "Birkenweg/1", "Rönerweg/1"
         };
-        String endLocation = "Schänzlihalde/1";
+        String endLocation = "Bärenplatz/1";
         ArrayList<String> path = null;
         int loopCounter = 0;
         long totalDistance = 0;
