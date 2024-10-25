@@ -8,10 +8,10 @@ import java.util.List;
 public class AStarMain {
     public static void main(String[] args) {
         String[] startLocations = {
-                "Suhr1", "Suhr2", "Suhr3", "Suhr4", "Suhr5",
+                "Bärenplatz/1", "Lagerweg/1", "Birkenweg/1", "Rönerweg/1", "Wyttenbach/4",
                 "Suhr6", "Suhr7", "Suhr8", "Suhr9", "Suhr10",
                 "Suhr11", "Suhr12", "Suhr13", "Suhr14", "Suhr15",
-                "Suhr16", "Suhr17", "Suhr18", "Suhr19", "Suhr20"
+                "Buempliz/Betlehemstrasse/1", "Buempliz/Lorbeerstrasse/1", "Buempliz/Bernstrasse/2", "Buempliz/Nord/1", "Buempliz/Keltenstrasse/3"
         };
         String endLocation = "Schänzlihalde/1";
         List<String> path = null;
