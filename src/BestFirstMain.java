@@ -15,7 +15,7 @@ public class BestFirstMain {
                 "Lagerweg/1", "Nordring/2", "Wyttenbach/4", "Birkenweg/1", "Rönerweg/1"
         };
 
-        String[] endLocation = {"Buempliz/Nord/1", "Nordring/5", "Suhr1"};
+        String[] endLocation = {"Buempliz/Nord/1", "Suhr1"};
         ArrayList<String> path = null;
         int loopCounter = 0;
         long totalDistance = 0;
@@ -25,7 +25,7 @@ public class BestFirstMain {
         for (int i = 0; i < startLocations.length; i++) {
             String start = startLocations[i % startLocations.length];
             for (int n = 0; n < endLocation.length; n++) {
-                String end = endLocation[i % endLocation.length];
+                String end = endLocation[n % endLocation.length];
                 System.out.println("Start: " + start +", End: " + end);
 
                 BestFirst bestFirst = new BestFirst(start, end);

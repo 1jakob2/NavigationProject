@@ -13,7 +13,7 @@ public class AStarMain {
                 "Buempliz/Stapfenackerstrasse/1", "Suhr22", "Suhr23", "Suhr24", "Suhr25",
                 "Lagerweg/1", "Nordring/2", "Wyttenbach/4", "Birkenweg/1", "Rönerweg/1"
         };
-        String[] endLocation = {"Buempliz/Nord/1", "Nordring/5", "Suhr1"};
+        String[] endLocation = {"Buempliz/Nord/1", "Suhr1"};
 
         List<String> path = null;
         int loopCounter = 0;

@@ -14,7 +14,7 @@ public class DijkstraMain {
                 "Buempliz/Stapfenackerstrasse/1", "Suhr22", "Suhr23", "Suhr24", "Suhr25",
                 "Lagerweg/1", "Nordring/2", "Wyttenbach/4", "Birkenweg/1", "Rönerweg/1"
         };
-        String[] endLocation = {"Buempliz/Nord/1", "Nordring/5", "Suhr1"};
+        String[] endLocation = {"Buempliz/Nord/1", "Suhr1"};
         List<String> path = null;
         int loopCounter = 0;
         long totalDistance = 0;
@@ -24,7 +24,7 @@ public class DijkstraMain {
         for (int i = 0; i < startLocations.length; i++) {
             String start = startLocations[i % startLocations.length];
             for (int n = 0; n < endLocation.length; n++) {
-                String end = endLocation[i % endLocation.length];
+                String end = endLocation[n % endLocation.length];
                 System.out.println("Start: " + start + ", End: " + end);
 
                 Dijkstra dijkstra = new Dijkstra(start, end);
