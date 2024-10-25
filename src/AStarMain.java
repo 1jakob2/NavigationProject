@@ -29,11 +29,11 @@ public class AStarMain {
 
         long memoryBefore = MemoryUtilisation.getMemoryUsage();
         long startTime = System.nanoTime();
-        for (int i = 0; i < startLocations2.length; i++) {
-            String start = startLocations2[i % startLocations2.length];
-            System.out.println("Start: " + start +", End: " + endLocation2);
+        for (int i = 0; i < startLocations.length; i++) {
+            String start = startLocations[i % startLocations.length];
+            System.out.println("Start: " + start +", End: " + endLocation);
 
-            AStar aStar = new AStar(start, endLocation2);
+            AStar aStar = new AStar(start, endLocation);
             path = aStar.getPath();
             loopCounter = aStar.getLoopCounter() + loopCounter;
 

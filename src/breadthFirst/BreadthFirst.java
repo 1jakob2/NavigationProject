@@ -8,7 +8,6 @@ import MapData.MapData;
 public class BreadthFirst {
 
     private Map<String, ArrayList<MapData.Destination>> adjList;
-    private Map<String, MapData.GPS> nodeList;
     private ArrayList<String> path = null;
     private int loopCounter = 0;// find how many times the algorithm goes through loops to find a result
 
